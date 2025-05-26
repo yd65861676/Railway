@@ -1,0 +1,8 @@
+# nixpacks.toml
+# Railway构建和部署配置
+
+[start]
+cmd = "gunicorn src.main:app --bind 0.0.0.0:$PORT"
+
+[variables]
+PORT = "8000"
