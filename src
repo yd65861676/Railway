@@ -1,1 +1,32 @@
+from flask import Flask, render_template, request, redirect, url_for
+import os
 
+app = Flask(__name__)
+
+# 配置密钥（在生产环境中应使用环境变量）
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default-dev-key')
+
+@app.route('/')
+def home():
+    """首页路由"""
+    return render_template('index.html', title='数字艺术市场')
+
+@app.route('/about')
+def about():
+    """关于页面路由"""
+    return render_template('about.html', title='关于我们')
+
+@app.route('/gallery')
+def gallery():
+    """艺术品展示页面"""
+    # 这里可以从数据库获取艺术品列表
+    artworks = [
+        {'id': 1, 'title': '星空', 'artist': '艺术家A', 'image': 'img/artwork1.jpg'},
+        {'id': 2, 'title': '海洋', 'artist': '艺术家B', 'image': 'img/artwork2.jpg'},
+        {'id': 3, 'title': '山脉', 'artist': '艺术家C', 'image': 'img/artwork3.jpg'}
+    ]
+    return render_template('gallery.html', title='艺术品展示', artworks=artworks)
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    """联系页面路由"""
